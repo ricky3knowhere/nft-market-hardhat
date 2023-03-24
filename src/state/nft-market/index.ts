@@ -39,7 +39,7 @@ const useNFTMarket = () => {
         const transaction: TransactionResponse = await nftMarket.createNFT(
           json.uri
         );
-        await transaction.wait();
+        await transaction.wait().then(() => window.location.replace("/owned"));
       }
     } catch (err) {
       console.log(err);
@@ -51,18 +51,20 @@ const useNFTMarket = () => {
       tokenID,
       price
     );
-    await transaction.wait().then(() => window.location.replace("/home"));
+    await transaction.wait().then(() => window.location.replace("/owned"));
   };
 
   const cancelListing = async (tokenID: string) => {
     const transaction: TransactionResponse = await nftMarket.cancelListing(
       tokenID
     );
-    await transaction.wait();
+    await transaction.wait().then(() => window.location.replace("/owned"));
   };
 
   const buyNFT = async (nft: NFT) => {
-    const transaction: TransactionResponse = await nftMarket.buyNFT({
+    console.log("price", ethers.utils.parseEther(nft.price));
+
+    const transaction: TransactionResponse = await nftMarket.buyNFT(nft.id, {
       value: ethers.utils.parseEther(nft.price),
     });
     await transaction.wait().then(() => window.location.replace("/owned"));

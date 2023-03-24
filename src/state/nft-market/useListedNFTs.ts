@@ -14,20 +14,19 @@ const useListedNFTs = () => {
     { variables: { currentAddres: address ?? "" }, skip: !address }
   );
 
-  const listedNFTs = data?.nfttransfers.map(parseRawNFT);
+  const listedNFTs = data?.nfts.map(parseRawNFT);
 
   return listedNFTs;
 };
 
 const GET_LISTED_NFTS = gql`
   query GetListedNFTs($currentAddres: String) {
-    nfttransfers(where: { to: "${NFT_MARKET_ADDRESS}" from_not: $currentAddres }) {
+    nfts(where: { to: "${NFT_MARKET_ADDRESS}" from_not: $currentAddres }) {
       id
       from
       to
       tokenURI
       price
-      tokenID
     }
   }
 `;

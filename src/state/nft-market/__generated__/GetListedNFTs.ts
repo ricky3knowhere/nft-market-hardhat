@@ -7,18 +7,17 @@
 // GraphQL query operation: GetListedNFTs
 // ====================================================
 
-export interface GetListedNFTs_nfttransfers {
-  __typename: "NFTTransfer";
-  id: any;
+export interface GetListedNFTs_nfts {
+  __typename: "NFT";
+  id: string;
   from: any;
   to: any;
   tokenURI: string;
   price: any;
-  tokenID: any;
 }
 
 export interface GetListedNFTs {
-  nfttransfers: GetListedNFTs_nfttransfers[];
+  nfts: GetListedNFTs_nfts[];
 }
 
 export interface GetListedNFTsVariables {

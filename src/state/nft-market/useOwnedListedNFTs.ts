@@ -14,14 +14,14 @@ const useOwnedListedNFTs = () => {
     { variables: { owner: address ?? "" }, skip: !address }
   );
 
-  const ownedListedNFTs = data?.nfttransfers.map(parseRawNFT);
+  const ownedListedNFTs = data?.nfts.map(parseRawNFT);
 
   return ownedListedNFTs;
 };
 
 const GET_OWNED_LISTED_NFTS = gql`
   query GetOwnedListedNFTs($owner: String!) {
-    nfttransfers(
+    nfts(
       where: {
         to: "${NFT_MARKET_ADDRESS}" 
         from: $owner 
@@ -32,7 +32,6 @@ const GET_OWNED_LISTED_NFTS = gql`
       to
       tokenURI
       price
-      tokenID
     }
   }
 `;
